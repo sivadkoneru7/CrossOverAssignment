@@ -19,7 +19,6 @@ exports.chargeRequestRedis = async function (input) {
         };
     }
     const chargesDecreased = await chargeRedis(redisClient, KEY, charges);
-    remainingBalance -= charges;
     await disconnectRedis(redisClient);
     if (chargesDecreased == null) {
          return {
@@ -28,6 +27,7 @@ exports.chargeRequestRedis = async function (input) {
             charges: 0,
         };
     }
+    remainingBalance -= charges;
     return {
         remainingBalance,
         charges,
